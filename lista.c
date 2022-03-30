@@ -1,23 +1,13 @@
 #include "lista.h"
-
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct node {
-  int valor;
-  struct node *proximo;
-  struct node *antes;
-} Node;
-
-typedef struct lista {
-  Node *sentinela;
-  int tam;
-} lista;
 
 void inicializarlista(lista *l) {
-  Node *novo = malloc(sizeof(Node));
-  novo->proximo = novo->antes = l->sentinela = novo;
-  l->tam = 0;
+  Node *novo = (Node*)malloc(sizeof(Node));
+  l->sentinela = novo;
+  novo->proximo = l->sentinela;
+  novo->antes = l->sentinela;
 }
 
 void destruir(lista *l) {
@@ -50,13 +40,15 @@ void removerFinal(lista *l) {
   l->tam--;
 }
 
-void inserir_no_inicio(lista *l, int num) {
+void inserirInicio(lista *l, int num) {
   Node *novo = malloc(sizeof(Node));
 
   if (novo) {
     novo->valor = num;
+    l->sentinela->proximo->antes = novo;
+    novo->proximo = l->sentinela->proximo;
     l->sentinela->proximo = novo;
-    novo->proximo = l->sentinela;
+    novo->antes = l->sentinela;
     l->tam++;
 
   } else {
@@ -64,8 +56,8 @@ void inserir_no_inicio(lista *l, int num) {
   }
 }
 
-void inserir_no_final(lista *l, int num) {
-  Node *aux = l->sentinela->antes, *novo = malloc(sizeof(Node));
+void inserirFinal(lista *l, int num) {
+  Node *novo = malloc(sizeof(Node));
 
   if (novo) {
     novo->valor = num;
@@ -78,9 +70,9 @@ void inserir_no_final(lista *l, int num) {
       novo->antes = l->sentinela;
 
     } else {
+      l->sentinela->antes->proximo = novo;
+      novo->antes = l->sentinela->antes;
       l->sentinela->antes = novo;
-      aux->proximo = novo;
-      novo->antes = aux;
     }
 
   } else {

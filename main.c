@@ -1,10 +1,30 @@
 #include <stdio.h>
 #include <stdlib.h>
+
 #include "fila.h"
 #include "lista.h"
 
-int main(){
+int main() {
+  lista l;
 
-    printf ("hello world\n");
-    return 0;
+  inicializarlista(&l);
+  inserirInicio(&l, 3);
+  inserirInicio(&l, 5);
+  inserirInicio(&l, 6);
+  inserirInicio(&l, 7);
+  inserirInicio(&l, -2);
+  inserirInicio(&l, 1);
+  inserirInicio(&l, 69);
+  inserirInicio(&l, 24);
+  inserirFinal(&l, 90);
+  removerInicio(&l);
+  removerFinal(&l);
+  printf ("sex vidigal\n");
+  destruir(&l);
+  if (vazia(&l))
+    printf ("TA VAZIA CARAIO\n");
+  else
+    printf ("depressao dor morte\n");
+
+  return 0;
 }
