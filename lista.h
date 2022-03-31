@@ -14,13 +14,17 @@ typedef struct lista {
 
 void inicializarlista(lista *l);
 void inserirInicio(lista *l, int num);
-void destruir(lista *l);
-int vazia(lista *l);
+void inserirFinal(lista *l, int num);
 void removerInicio(lista *l);
 void removerFinal(lista *l);
-void inserirFinal(lista *l, int num);
+void destruir(lista *l);
+
+/*Parte ainda não implementada.=======================
 void inserirMeioDps(lista *l, int num, int ant);
 void inserirMeioAntes(lista *l, int num, int depois);
 void imprimir(Node *node);
+======================================================*/
+
+int vazia(lista *l);
 
 #endif
