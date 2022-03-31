@@ -13,7 +13,13 @@ void inicializarlista(lista *l) {
 void destruir(lista *l) {
   while (!vazia(l))
     removerInicio(l);
-  free(l->sentinela);
+
+  if (vazia(l))
+    printf ("A lista foi destruida corretamente.\n");
+  else
+    printf ("Nao foi possível destruir a lista.\n");
+
+   free(l->sentinela);
 }
 
 int vazia(lista *l) {

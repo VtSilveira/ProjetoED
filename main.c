@@ -19,12 +19,8 @@ int main() {
   inserirFinal(&l, 90);
   removerInicio(&l);
   removerFinal(&l);
-  printf ("sex vidigal\n");
   destruir(&l);
-  if (vazia(&l))
-    printf ("TA VAZIA CARAIO\n");
-  else
-    printf ("depressao dor morte\n");
+  destruir(&l);
 
   return 0;
 }
