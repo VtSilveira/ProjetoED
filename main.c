@@ -21,6 +21,7 @@ int main() {
   removerFinal(&l);
   destruir(&l);
   destruir(&l);
+  printf ("adasdas");
 
   return 0;
 }
