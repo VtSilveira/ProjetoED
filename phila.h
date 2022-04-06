@@ -1,28 +1,36 @@
 #ifndef PHILA_H
 #define PHILA_H
 
-typedef struct node {
+typedef struct nodeF {
   int idade;
-  char urgencia; //Red, Orange, Yellow, Green, Blue (R>O>Y>G>B)
+  char urgencia; //Red, Orange, Yellow, Green, Blue (R>O>Y>G>B)(A<B<C<D<E)
   int index;
-  Node *pai;
-  Node *filhoEsq;
-  Node *filhoDir;
-  Node *proximo;
-} Node;
+  struct nodeF *pai;
+  struct nodeF *filhoEsq;
+  struct nodeF *filhoDir;
+  struct nodeF *proximo;
+  struct nodeF *anterior;
+} NodeF;
 
 typedef struct fila {
-  Node *fim;
-  Node *inicio;
+  NodeF *fim;
+  NodeF *inicio;
   int tam;
 } Fila;
 
 void inicializarFila(Fila *f);
 void inserirFila(int idade, char urgencia, Fila *f);
 void retirarFila(Fila *f);
-void fixUp(Fila *f,Node *aux);
-int vazia(Fila *f);
-void trocaNode(Node *a,Node *b);
-int encontraPai(Node *novo, Fila *f, Node *aux)
+int vaziaFila(Fila *f);
+void destruirFila(Fila *f);
+
+//==============================
+//Funcoes para uso interno das funções principais acima 
+
+void fixUpFila(Fila *f,NodeF *n);
+void fixDownFila(Fila *f,NodeF *n);
+void trocaNodeFila(NodeF *a,NodeF *b);
+char ajustaUrgenciaFila(char urgencia);
+void ajustaHeapDownFila(Fila *f, NodeF *n);
 
 #endif

@@ -3,18 +3,18 @@
 #include <stdlib.h>
 
 
-void inicializarlista(lista *l) {
-  Node *novo = (Node*)malloc(sizeof(Node));
+void inicializarLista(lista *l) {
+  NodeL *novo = (NodeL*)malloc(sizeof(NodeL));
   l->sentinela = novo;
   novo->proximo = l->sentinela;
   novo->antes = l->sentinela;
 }
 
-void destruir(lista *l) {
-  while (!vazia(l))
-    removerInicio(l);
+void destruirLista(lista *l) {
+  while (!vaziaLista(l))
+    removerInicioLista(l);
 
-  if (vazia(l))
+  if (vaziaLista(l))
     printf ("A lista foi destruida corretamente.\n");
   else
     printf ("Nao foi possível destruir a lista.\n");
@@ -22,13 +22,13 @@ void destruir(lista *l) {
    free(l->sentinela);
 }
 
-int vazia(lista *l) {
+int vaziaLista(lista *l) {
   return l->sentinela->proximo == l->sentinela;
 }
 
-void removerInicio(lista *l) {
-  Node *aux = l->sentinela->proximo;
-  if (!vazia(l)) {
+void removerInicioLista(lista *l) {
+  NodeL *aux = l->sentinela->proximo;
+  if (!vaziaLista(l)) {
     aux->proximo->antes = aux->antes;
     aux->antes->proximo = aux->proximo;
     free(aux);
@@ -36,9 +36,9 @@ void removerInicio(lista *l) {
   l->tam--;
 }
 
-void removerFinal(lista *l) {
-  Node *aux = l->sentinela->antes;
-  if (!vazia(l)) {
+void removerFinalLista(lista *l) {
+  NodeL *aux = l->sentinela->antes;
+  if (!vaziaLista(l)) {
     aux->proximo->antes = aux->antes;
     aux->antes->proximo = aux->proximo;
     free(aux);
@@ -46,8 +46,8 @@ void removerFinal(lista *l) {
   l->tam--;
 }
 
-void inserirInicio(lista *l, int num) {
-  Node *novo = malloc(sizeof(Node));
+void inserirInicioLista(lista *l, int num) {
+  NodeL *novo = malloc(sizeof(NodeL));
 
   if (novo) {
     novo->valor = num;
@@ -62,15 +62,15 @@ void inserirInicio(lista *l, int num) {
   }
 }
 
-void inserirFinal(lista *l, int num) {
-  Node *novo = malloc(sizeof(Node));
+void inserirFinalLista(lista *l, int num) {
+  NodeL *novo = malloc(sizeof(NodeL));
 
   if (novo) {
     novo->valor = num;
     novo->proximo = l->sentinela;
     l->tam++;
 
-    if (vazia(l)) {
+    if (vaziaLista(l)) {
       l->sentinela->antes = novo;
       l->sentinela->proximo = novo;
       novo->antes = l->sentinela;
@@ -87,7 +87,7 @@ void inserirFinal(lista *l, int num) {
 }
 
 /*void inserir_meio_dps(lista *l, int num, int ant) {
-  Node *aux, *novo = malloc(sizeof(Node));
+  NodeL *aux, *novo = malloc(sizeof(NodeL));
 
   if (novo) {
     novo->valor = num;
@@ -110,7 +110,7 @@ void inserirFinal(lista *l, int num) {
 }*/
 
 /*void inserir_meio_antes(lista *l, int num, int depois) {
-  Node *aux, *novo = malloc(sizeof(Node));
+  NodeL *aux, *novo = malloc(sizeof(NodeL));
 
   if (novo) {
     novo->valor = num;
@@ -132,11 +132,11 @@ void inserirFinal(lista *l, int num) {
   }
 }*/
 
-void imprimir(Node *node) {
+void imprimir(NodeL *nodeL) {
   printf("\nLista: ");
-  while (node) {
-    printf("%d ", node->valor);
-    node = node->proximo;
+  while (nodeL) {
+    printf("%d ", nodeL->valor);
+    nodeL = nodeL->proximo;
   }
   printf("\n\n");
 }

@@ -1,4 +1,5 @@
 #include "phila.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -8,91 +9,157 @@ void inicializarFila(Fila *f) {
   f->inicio = NULL;
 }
 
-
 void inserirFila(int idade, char urgencia, Fila *f) {
-
-  Node *novo = (Node *)malloc(sizeof(Node));
+  NodeF *novo = (NodeF *)malloc(sizeof(NodeF));
   novo->idade = idade;
-  novo->urgencia = urgencia;
+
+  novo->urgencia = ajustaUrgenciaFila(urgencia);
+  if((novo->idade >= 60) && (novo->urgencia <'B'))
+    novo->urgencia = 'B';
+  
   novo->filhoDir = NULL;
   novo->filhoEsq = NULL;
   novo->proximo = NULL;
-  f->tam++;
 
-  if (vazia(f)) {
+  if (novo) {
+    if (vaziaFila(f)) {
+      f->tam++;
+      f->fim = novo;
+      f->inicio = novo;
+      novo->pai = novo;
+      novo->index = f->tam;
+      novo->anterior = NULL;
 
-    f->fim = novo;
-    f->inicio = novo;
-    novo->pai = novo;
-    novo->index = f->tam;
+    } else {
+      novo->anterior = f->fim;
+      f->tam++;
+      f->fim->proximo = novo;
+      f->fim = novo;
+      novo->index = f->tam;
 
-  } else {
+      NodeF *aux = f->inicio;
 
-    f->fim->proximo = novo;
-    f->fim = novo;
-    
+      int i = 1;
+      while (i != (novo->index / 2)) {
+        aux = aux->proximo;
+        i++;
+      }
 
-    Node *aux = (Node *)malloc(sizeof(Node));
+      novo->pai = aux;
 
-    aux = f->inicio;
-
-    int i=1;
-    while(i != (novo->index/2)){
-      aux = aux->proximo;
-      i++;
+      if (novo->pai->index * 2 == novo->index)
+        novo->pai->filhoEsq = novo;
+      else
+        novo->pai->filhoDir = novo;
+      
+      fixUpFila(f, novo);
     }
-
-    novo->pai = aux;
-
-    if (novo->pai->index*2 == novo->index)
-      novo->pai->filhoEsq = novo; 
-    else
-      novo->pai->filhoDir = novo;
-    
-    free(aux);
-
-    fixUp(f, novo);
+  } else {
+    printf("A memoria nao foi alocada corretamente.\n");
   }
 }
 
 void retirarFila(Fila *f) {
+  trocaNodeFila(f->fim, f->inicio);
+
+  if (f->fim->index%2 == 0)
+    f->fim->pai->filhoEsq = NULL;
+  else
+    f->fim->pai->filhoDir = NULL;
+  
+  f->fim = f->fim->anterior;
+
+  if (f->fim)
+    f->fim->proximo = NULL;
+  
+  f->tam--;
+  
+  ajustaHeapDownFila(f, f->inicio);
 }
 
-void fixUp(Fila *f, Node *n) {
+void fixUpFila(Fila *f, NodeF *n) {
   if (n->pai != n) {
     if (n->urgencia == n->pai->urgencia) {
       if (n->idade > n->pai->idade) {
-        trocaNode(n, n->pai);
-        fixUp(f, n);
+        trocaNodeFila(n, n->pai);
+        fixUpFila(f, n->pai);
       }
     } else if (n->urgencia > n->pai->urgencia) {
-      trocaNode(n, n->pai);
-      fixUp(f, n);
+      trocaNodeFila(n, n->pai);
+      fixUpFila(f, n->pai);
     }
   }
 }
 
-int vazia(Fila *f) {
+int vaziaFila(Fila *f) {
   return f->tam == 0;
 }
 
-void trocaNode(Node *a, Node *b) {
-  Node *aux = (Node *)malloc(sizeof(Node));
+void trocaNodeFila(NodeF *a, NodeF *b) {
+  NodeF *aux = (NodeF *)malloc(sizeof(NodeF));
 
-  aux->proximo = a->proximo;
-  aux->filhoDir = a->filhoDir;
-  aux->filhoEsq = a->filhoEsq;
   aux->idade = a->idade;
+  aux->urgencia = a->urgencia;
 
-  a->proximo = b->proximo;
-  a->filhoDir = b->filhoDir;
-  a->filhoEsq = b->filhoEsq;
+
   a->idade = b->idade;
+  a->urgencia = b->urgencia;
 
-  b->proximo = aux->proximo;
-  b->filhoDir = aux->filhoDir;
-  b->filhoEsq = aux->filhoEsq;
+
   b->idade = aux->idade;
+  b->urgencia = aux->urgencia;
 
   free(aux);
+}
+
+char ajustaUrgenciaFila(char urgencia) {
+  switch (urgencia) {
+    case 'R':
+      return 'E';
+    case 'O':
+      return 'D';
+    case 'Y':
+      return 'C';
+    case 'G':
+      return 'B';
+    case 'B':
+      return 'A';
+    default:
+      return 'Z';
+  }
+}
+
+void ajustaHeapDownFila(Fila *f, NodeF *n) {
+  NodeF *maior = n;
+  if (n->filhoEsq) {
+    if (n->urgencia == n->filhoEsq->urgencia) {
+      if (n->idade < n->filhoEsq->idade) {
+        maior = n->filhoEsq;
+      }
+    } else if (n->urgencia < n->filhoEsq->urgencia) {
+      maior = n->filhoEsq;
+    }
+  }
+
+  if (n->filhoDir) {
+    if (maior->urgencia == n->filhoDir->urgencia) {
+      if (maior->idade < n->filhoDir->idade) {
+        maior = n->filhoDir;
+      }
+    } else if (maior->urgencia < n->filhoDir->urgencia) {
+      maior = n->filhoDir;
+    }
+  }
+
+  if (maior != n) {
+    trocaNodeFila(n, maior);
+    ajustaHeapDownFila(f, maior);
+  }
+}
+
+void destruirFila(Fila *f){
+  while (!vaziaFila(f))
+    retirarFila(f);
+
+  free(f->inicio);
 }

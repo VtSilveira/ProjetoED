@@ -1,26 +1,38 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "fila.h"
 #include "lista.h"
-//oijhrkljaeshkfhasd
+#include "phila.h"
+
 int main() {
   lista l;
+  Fila f;
 
-  inicializarlista(&l);
-  inserirInicio(&l, 3);
-  inserirInicio(&l, 5);
-  inserirInicio(&l, 6);
-  inserirInicio(&l, 7);
-  inserirInicio(&l, -2);
-  inserirInicio(&l, 1);
-  inserirInicio(&l, 69);
-  inserirInicio(&l, 24);
-  inserirFinal(&l, 90);
-  removerInicio(&l);
-  removerFinal(&l);
-  destruir(&l);
-  destruir(&l);
+  inicializarLista(&l);
+  inserirInicioLista(&l, 3);
+  inserirInicioLista(&l, 5);
+  inserirInicioLista(&l, 6);
+  inserirInicioLista(&l, 7);
+  inserirInicioLista(&l, -2);
+  inserirInicioLista(&l, 1);
+  inserirInicioLista(&l, 69);
+  inserirInicioLista(&l, 24);
+  inserirFinalLista(&l, 90);
+  removerInicioLista(&l);
+  removerFinalLista(&l);
+  destruirLista(&l);
+
+  inicializarFila(&f);
+  inserirFila(20, 'R', &f);
+  inserirFila(60, 'O', &f);
+  inserirFila(19, 'R', &f);
+  inserirFila(47, 'B', &f);
+  inserirFila(37, 'Y', &f);
+  inserirFila(45, 'O', &f);
+  inserirFila(90, 'G', &f);
+  inserirFila(108, 'B', &f);
+  destruirFila(&f);
+  
 
   return 0;
 }
