@@ -1,3 +1,4 @@
+/*Nomes: Andre Luis Zitelli Rettondini, Sergio Neres Pereira Junior, Vitor Silveira*/
 #include "lista.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -136,13 +137,3 @@ void inserirFinalLista(lista *l, int num) {
     printf("A memoria não foi alocada corretamente\n");
   }
 }*/
-
-
-void imprimir(NodeL *nodeL) {
-  printf("\nLista: ");
-  while (nodeL) {//
-    printf("%d ", nodeL->valor);
-    nodeL = nodeL->proximo;
-  }
-  printf("\n\n");
-}

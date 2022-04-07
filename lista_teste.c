@@ -1,3 +1,5 @@
+/*Nomes: Andre Luis Zitelli Rettondini, Sergio Neres Pereira Junior, Vitor Silveira*/
+//A formação correta da fila pode ser vista através de um debugger
 #include <stdio.h>
 #include <stdlib.h>
 #include "lista.h"
