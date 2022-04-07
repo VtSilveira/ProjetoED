@@ -8,6 +8,7 @@ void inicializarLista(lista *l) {
   l->sentinela = novo;
   novo->proximo = l->sentinela;
   novo->antes = l->sentinela;
+  l->tam=0;
 }
 
 //Destruição da Lista baseada nas funções vazia e removerInicio (poderia ser removerFim também).
