@@ -1,6 +1,7 @@
 #ifndef FILA_H
 #define FILA_H
 
+//O nodeF tem duas representações: Uma de "vetor", onde o próximo será apenas o elemento de index incrementado em um e o anterior o contrário disso, e outra de grafo, sendo essa composta pelo pai, filho esq e filho dir.
 typedef struct nodeF {
   int idade;
   char urgencia; //Red, Orange, Yellow, Green, Blue (R>O>Y>G>B)(A<B<C<D<E)
@@ -12,6 +13,7 @@ typedef struct nodeF {
   struct nodeF *anterior;
 } NodeF;
 
+//A fila tem campos Node fim e inicio e o tamanho.
 typedef struct fila {
   NodeF *fim;
   NodeF *inicio;
@@ -25,7 +27,7 @@ int vaziaFila(Fila *f);
 void destruirFila(Fila *f);
 
 //==============================
-//Funcoes para uso interno das funções principais acima 
+//Funcoes para uso interno das funções principais
 
 void fixUpFila(Fila *f,NodeF *n);
 void fixDownFila(Fila *f,NodeF *n);

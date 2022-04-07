@@ -12,7 +12,7 @@
 				"-o",
 				"${fileDirname}\\${fileBasenameNoExtension}.exe",
 				"lista.c",
-				"phila.c"
+				"fila.c"
 			],
 			"options": {
 				"cwd": "${fileDirname}"
