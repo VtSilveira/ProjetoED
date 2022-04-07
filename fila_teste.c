@@ -15,6 +15,7 @@ int main() {
   inserirFila(45, 'O', &f);
   inserirFila(90, 'G', &f);
   inserirFila(108, 'B', &f);
+  inserirFila(100, 'R', &f);
   destruirFila(&f);
   
   //Ao fim do programa é possível ver que tudo ocorreu dentro do esperado.
