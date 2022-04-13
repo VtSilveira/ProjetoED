@@ -1,4 +1,5 @@
-//Antes de ler o arquivo, recomendo ler o arquivo resumoprojeto.rtf.
+/*Nomes: Andre Luis Zitelli Rettondini, Sergio Neres Pereira Junior, Vitor Silveira*/
+//Antes de ler o arquivo, recomendo ler o arquivo resumoprojeto.pdf.
 #include "fila.h"
 #include <stdio.h>
 #include <stdlib.h>

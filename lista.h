@@ -23,7 +23,7 @@ void removerInicioLista(lista *l);
 void removerFinalLista(lista *l);
 void destruirLista(lista *l);
 int vaziaLista(lista *l);
-//fasdjhfdsajhfasdjkfhaskd
+
 /*Parte ainda não implementada.=======================
 void inserirMeioDps(lista *l, int num, int ant);
 void inserirMeioAntes(lista *l, int num, int depois);

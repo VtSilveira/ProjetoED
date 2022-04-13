@@ -92,6 +92,8 @@ void inserirFinalLista(lista *l, int num) {
   }
 }
 
+//FUNCOES AINDA NAO IMPLEMENTADAS============================
+
 /*void inserir_meio_dps(lista *l, int num, int ant) {
   NodeL *aux, *novo = malloc(sizeof(NodeL));
 
@@ -137,3 +139,4 @@ void inserirFinalLista(lista *l, int num) {
     printf("A memoria não foi alocada corretamente\n");
   }
 }*/
+
