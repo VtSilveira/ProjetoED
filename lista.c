@@ -92,51 +92,76 @@ void inserirFinalLista(lista *l, int num) {
   }
 }
 
-//FUNCOES AINDA NAO IMPLEMENTADAS============================
-
-/*void inserir_meio_dps(lista *l, int num, int ant) {
-  NodeL *aux, *novo = malloc(sizeof(NodeL));
-
-  if (novo) {
-    novo->valor = num;
-    l->tam++;
-    if (!l->sentinela) {
-      novo->proximo = NULL;
-      l->sentinela = novo;
-    } else {
-      aux =  l->sentinela;
-
-      while (aux->valor != ant && aux->proximo)
-        aux = aux->proximo;
-
-      novo->proximo = aux->proximo;
-      aux->proximo = novo;
+void inserirAntes(lista *l, Iterador *i, int valor){
+    NodeL *novo = malloc(sizeof(NodeL));
+    if(novo){
+        l->tam++;
+        novo->valor=valor;
+        novo->proximo = i->posicao;
     }
-  } else {
-    printf("A memoria não foi alocada corretamente\n");
-  }
-}*/
+}
+void inserirDepois(lista *l, Iterador *i,int valor){
 
-/*void inserir_meio_antes(lista *l, int num, int depois) {
-  NodeL *aux, *novo = malloc(sizeof(NodeL));
+}
 
-  if (novo) {
-    novo->valor = num;
-    l->tam++;
-    if (!l->sentinela) {
-      novo->proximo = NULL;
-      l->sentinela = novo;
-    } else {
-      aux =  l->sentinela;
-
-      while (aux->proximo->proximo->valor != depois && aux->proximo->proximo)
-        aux = aux->proximo;
-
-      novo->proximo = aux->proximo->proximo;
-      aux->proximo->proximo = novo;
+void removerElemento(lista *l,Iterador *i, int valor){
+    
+    if(!vazia(l)){//se a lista não estiver vazia:
+        i = buscaPosicao(l,valor);
+        if(i){
+            i->posicao->proximo->antes = i->posicao->antes;
+            i->posicao->antes->proximo = i->posicao->proximo;
+            free(i->posicao);
+            l->tam--;
+        }
     }
-  } else {
-    printf("A memoria não foi alocada corretamente\n");
-  }
-}*/
+}
 
+Iterador* primeiro (lista *l){
+    Iterador *i=malloc(sizeof(Iterador));
+    i->posicao = l->sentinela->proximo;
+    i->estrutura = l;
+    return i;
+}
+
+Iterador* ultimo (lista *l){
+    Iterador *i;
+    i->posicao = l->sentinela->antes;
+    i->estrutura = l;
+    return i;
+}
+Iterador* buscaPosicao(lista *l, int valor){
+    Iterador *i;
+    i = primeiro(l);
+    while(!acabou(i) && i->posicao->valor!=valor)
+        i->posicao=i->posicao->proximo;
+    //ou acabou a lista ou achou o valor
+    if(i->posicao->valor==valor){
+        return i;
+    }else{
+        printf("Não existe esse valor na lista!");
+        return NULL;
+    }
+}
+
+int proximo(Iterador *i){
+    if(!acabou(i)){
+        i->posicao = i->posicao->proximo;
+    }
+}
+
+int anterior(Iterador *i){
+    if(!acabou(i)){
+        i->posicao = i->posicao->antes;
+    }
+}
+
+int acabou(Iterador *i){
+    return i->posicao==i->estrutura->sentinela;
+}
+
+int elemento( Iterador *i){
+    if(!acabou(i)){
+        return i->posicao->valor;
+    }
+}

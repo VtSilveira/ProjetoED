@@ -15,6 +15,11 @@ typedef struct lista {
   int tam;
 } lista;
 
+typedef struct iterador{
+    NodeL *posicao;
+    lista *estrutura;
+}Iterador;
+
 
 void inicializarLista(lista *l);
 void inserirInicioLista(lista *l, int num);
@@ -23,12 +28,17 @@ void removerInicioLista(lista *l);
 void removerFinalLista(lista *l);
 void destruirLista(lista *l);
 int vaziaLista(lista *l);
-
-/*Parte ainda não implementada.=======================
-void inserirMeioDps(lista *l, int num, int ant);
-void inserirMeioAntes(lista *l, int num, int depois);
-======================================================*/
-
+void inserirAntes(lista *l, Iterador *i, int valor);
+void inserirDepois(lista *l, Iterador *i, int valor);
+void removerElemento(lista *l, Iterador *i, int valor);
+Iterador* primeiro(lista *l);
+Iterador* ultimo(lista *l);
+Iterador* buscaPrimeiro(lista *l, int valor);
+Iterador* buscaUltimo(Iterador *i, int valor);
+Iterador* buscaPosicao(lista *l, int valor);
+int proximo(Iterador *i);
+int anterior(Iterador *i);
+int acabou(Iterador *i);
 
 
 #endif
