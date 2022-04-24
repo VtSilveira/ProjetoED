@@ -73,19 +73,13 @@ void inserirFinalLista(lista *l, int num) {
   if (novo) {//se o nó foi alocado corretamente:
     novo->valor = num;
     novo->proximo = l->sentinela;//o nó posterior ao novo nó passa a ser o sentinela
+    novo->antes = l->sentinela->antes;
+    l->sentinela->antes->proximo = novo;
     l->sentinela->antes = novo;// o novo nó passa a ser o nó anterior ao sentinela
     l->tam++;
-
-    if (vaziaLista(l)) {//se a lista estiver vazia:
-      //tanto o nó posterior como o anterior ao sentinela será o novo nó alocado
-      l->sentinela->proximo = novo;
-      novo->antes = l->sentinela;// a fim de manter a característica circular da Lista, a referencia de anterior do novo nó passa a ser o sentinela, uma vez que inserir no fim nesse caso é a mesma coisa que inserir no inicio
-
-    } else {// se ela não estiver vazia
-      l->sentinela->antes->proximo = novo;//a referencia "anterior" do antigo ultimo nó passa a ser o novo nó, uma vez que iremos inserir no fim
-      novo->antes = l->sentinela->antes; // o no anterior ao novo nó será o antigo ultimo nó da Lista
-      
-    }
+    
+    
+    
 
   } else {
     printf("A memoria não foi alocada corretamente\n");
@@ -94,19 +88,36 @@ void inserirFinalLista(lista *l, int num) {
 
 void inserirAntes(lista *l, Iterador *i, int valor){
     NodeL *novo = malloc(sizeof(NodeL));
+    NodeL *aux = i->posicao->antes;
     if(novo){
         l->tam++;
         novo->valor=valor;
+
+        novo->antes = aux;
         novo->proximo = i->posicao;
+
+        aux->proximo = novo;
+        i->posicao->antes = novo;   
     }
 }
 void inserirDepois(lista *l, Iterador *i,int valor){
+    NodeL *novo = malloc(sizeof(NodeL));
+    NodeL *aux = i->posicao->proximo;
+    if(novo){
+        l->tam++;
+        novo->valor=valor;
 
+        novo->proximo = aux;
+        novo->antes = i->posicao;
+
+        aux->antes = novo;
+        i->posicao->proximo = novo;   
+    }
 }
 
 void removerElemento(lista *l,Iterador *i, int valor){
     
-    if(!vazia(l)){//se a lista não estiver vazia:
+    if(!vaziaLista(l)){//se a lista não estiver vazia:
         i = buscaPosicao(l,valor);
         if(i){
             i->posicao->proximo->antes = i->posicao->antes;
@@ -125,11 +136,12 @@ Iterador* primeiro (lista *l){
 }
 
 Iterador* ultimo (lista *l){
-    Iterador *i;
+    Iterador *i=malloc(sizeof(Iterador));
     i->posicao = l->sentinela->antes;
     i->estrutura = l;
     return i;
 }
+
 Iterador* buscaPosicao(lista *l, int valor){
     Iterador *i;
     i = primeiro(l);
@@ -144,18 +156,6 @@ Iterador* buscaPosicao(lista *l, int valor){
     }
 }
 
-int proximo(Iterador *i){
-    if(!acabou(i)){
-        i->posicao = i->posicao->proximo;
-    }
-}
-
-int anterior(Iterador *i){
-    if(!acabou(i)){
-        i->posicao = i->posicao->antes;
-    }
-}
-
 int acabou(Iterador *i){
     return i->posicao==i->estrutura->sentinela;
 }
@@ -164,4 +164,12 @@ int elemento( Iterador *i){
     if(!acabou(i)){
         return i->posicao->valor;
     }
+}
+
+void imprimirLista(lista *l){
+  NodeL *aux = l->sentinela->proximo;
+  while(aux != l->sentinela){
+    printf("%d\n",aux->valor);
+    aux = aux->proximo;
+  }
 }
