@@ -10,6 +10,5 @@ int main(){
     scanf ("%d:%d", &Hh,&Mm);
     Mm += Hh*60;
     inicializarLista(&l);
-    inserirInicioLista(&l, Mm);
     return (0);
 }

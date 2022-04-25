@@ -3,6 +3,7 @@
 #include "fila.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 //Essa função apenas inicializa a Fila, colocando tamanho zero, fim e inicio nulos.
 void inicializarFila(Fila *f) {
@@ -12,11 +13,12 @@ void inicializarFila(Fila *f) {
 }
 
 
-void inserirFila(int idade, char urgencia, Fila *f) {
+void inserirFila(char nome[],int idade, char urgencia, Fila *f) {
   //É feita a alocação de um novo nó e as devidas instancias dos nós são passadas: idade e urgência.
   NodeF *novo = (NodeF *)malloc(sizeof(NodeF));
   novo->idade = idade;
-
+  strcpy(novo->nome, nome);
+  
   //A urgência é ajustada para facilitar a implementação da prioridade da fila e caso a pessoa atendida seja um idoso, sua urgencia será, no minímo, verde ((G)reen == B).
   novo->urgencia = ajustaUrgenciaFila(urgencia);
   if((novo->idade >= 60) && (novo->urgencia <'B'))

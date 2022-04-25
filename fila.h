@@ -4,6 +4,7 @@
 
 //O nodeF tem duas representações: Uma de "vetor", onde o próximo será apenas o elemento de index incrementado em um e o anterior o contrário disso, e outra de grafo, sendo essa composta pelo pai, filho esq e filho dir.
 typedef struct nodeF {
+  char nome[30];
   int idade;
   char urgencia; //Red, Orange, Yellow, Green, Blue (R>O>Y>G>B)(A<B<C<D<E)
   int index;
@@ -22,7 +23,7 @@ typedef struct fila {
 } Fila;
 
 void inicializarFila(Fila *f);
-void inserirFila(int idade, char urgencia, Fila *f);
+void inserirFila(char nome[30], int idade, char urgencia, Fila *f);
 void retirarFila(Fila *f);
 int vaziaFila(Fila *f);
 void destruirFila(Fila *f);

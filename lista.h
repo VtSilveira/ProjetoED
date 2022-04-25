@@ -8,6 +8,8 @@
 // cumprir com a o requisito "Lista duplamente encadeada".
 typedef struct nodeL {
   int valor;
+  char nome[30];
+  char consulta[30];
   struct nodeL *proximo;
   struct nodeL *antes;
 } NodeL;
@@ -24,16 +26,18 @@ typedef struct iterador {
   lista *estrutura;
 } Iterador;
 
+
+void inserirElementoLista(lista *l, Iterador *i, int num, char nome[], char consulta[], int idade);
 void inicializarLista(lista *l);
-void inserirInicioLista(lista *l, int num);
-void inserirFinalLista(lista *l, int num);
+void inserirInicioLista(lista *l, int num, char nome[], char consulta[]);
+void inserirFinalLista(lista *l, int num, char nome[], char consulta[]);
 void removerInicioLista(lista *l);
 void removerFinalLista(lista *l);
 void destruirLista(lista *l);
 int vaziaLista(lista *l);
 
-void inserirAntes(lista *l, Iterador *i, int valor);
-void inserirDepois(lista *l, Iterador *i, int valor);
+void inserirAntes(lista *l, Iterador *i, int valor, char nome[], char consulta[]);
+void inserirDepois(lista *l, Iterador *i, int valor, char nome[], char consulta[]);
 void removerElemento(lista *l, Iterador *i, int valor);
 
 Iterador *primeiro(lista *l);
