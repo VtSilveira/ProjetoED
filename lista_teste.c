@@ -11,11 +11,11 @@ int main() {
 
   inicializarLista(&l);
   i = primeiro(&l);
-  inserirElementoLista(&l, i, 3, "vitor", "jhonso", 18);
-  inserirElementoLista(&l, i, 89, "vitor1", "jhonso2", 184);
-  inserirElementoLista(&l, i, 74, "vitor2", "jhonso3", 183);
-  inserirElementoLista(&l, i, 98, "vitor3", "jhonso5", 182);
-  inserirElementoLista(&l, i, 90, "vitor4", "jhonso7", 181);
+  inserirElementoLista(&l, i, 1020, "joao", "jhonso", 18);
+  inserirElementoLista(&l, i, 840, "andre", "jhonso2", 184);
+  inserirElementoLista(&l, i, 900, "vitor2", "jhonso3", 183);
+  inserirElementoLista(&l, i, 480, "vitor3", "jhonso5", 182);
+  inserirElementoLista(&l, i, 510, "vitor4", "jhonso7", 181);
   
 
   //Ao fim do programa é possível ver que tudo ocorreu dentro do esperado.

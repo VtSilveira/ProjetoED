@@ -17,6 +17,7 @@ void inicializarLista(lista *l) {
 void inserirElementoLista(lista *l, Iterador *i, int num, char nome[], char consulta[], int idade) {
   if (vaziaLista(l)) {
     inserirInicioLista(l, num, nome, consulta);
+    i->posicao = l->sentinela->proximo;
   } else {
     NodeL *novo = (NodeL *)malloc(sizeof(NodeL));
     if (novo) {
@@ -33,12 +34,7 @@ void inserirElementoLista(lista *l, Iterador *i, int num, char nome[], char cons
 void destruirLista(lista *l) {
   while (!vaziaLista(l))    // enquanto a Lista não estiver vazia
     removerInicioLista(l);  // remove o nó do inicio
-
-  if (vaziaLista(l))  // caso a Lista estiver vazia no final do loop, aparece a mensagem de sucesso, senão, a de erro.
-    printf("A lista foi destruida corretamente.\n");
-  else
-    printf("Nao foi possível destruir a lista.\n");
-
+    
   free(l->sentinela);  // desaloca o nó sentinela da memória que não é considerado como nó na função "removerInicio"
 }
 
@@ -191,7 +187,7 @@ int elemento(Iterador *i) {
 void imprimirLista(lista *l) {
   NodeL *aux = l->sentinela->proximo;
   while (aux != l->sentinela) {
-    printf("%d\n", aux->valor);
+    printf("%02d:%02d - %s - %s\n", (aux->valor/60),(aux->valor%60),aux->nome, aux->consulta);
     aux = aux->proximo;
   }
 }

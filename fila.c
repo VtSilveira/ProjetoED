@@ -193,8 +193,4 @@ void destruirFila(Fila *f){
     retirarFila(f);
 
   free(f->inicio);
-  if (vaziaFila(f))
-    printf ("A fila foi destruida corretamente.\n");
-  else
-    printf ("A fila nao foi destruida corretamente.\n");
 }

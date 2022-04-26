@@ -12,7 +12,8 @@
 				"-o",
 				"${fileDirname}\\${fileBasenameNoExtension}.exe",
 				"lista.c",
-				"fila.c"
+				"fila.c",
+				"utils.c"
 			],
 			"options": {
 				"cwd": "${fileDirname}"
