@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+
 #include "fila.h"
 #include "lista.h"
 
@@ -19,7 +20,6 @@ int main() {
   int Hh, Mm;
   int day;
   Fila f;
-
 
   for (int i = 0; i <= 30; i++) {
     dia[i].horario[0] = 480;
@@ -41,13 +41,13 @@ int main() {
   data_hora_atual = localtime(&segundos);
 
   inicializarFila(&f);
-  for(int i=0;i<30;i++){
+  for (int i = 0; i < 30; i++) {
     inicializarLista(&dia[i].l);
     dia[i].it = primeiro(&dia[i].l);
   }
 
   while (1) {
-    printf("Para emergencia, digite M, para agendar consultas, digite C, para sair do programa, digite S: ");
+    printf("Para emergencia digite M, para abrir a aba de consultas digite C, para sair do programa, digite S: ");
     scanf(" %c", &chooser);
 
     switch (chooser) {
@@ -69,45 +69,74 @@ int main() {
 
       case 'C':
 
-        printf("Digite o nome do paciente sem espacos (ex:JoaodaSilva): ");
-        scanf("%s", nome);
+        char chooser2;
+        printf("Para marcar, digite M, para cancelar, digite C: ");
+            scanf(" %c", &chooser2);
 
-        printf("Digite a idade do paciente: ");
-        scanf("%d", &idade);
+        switch (chooser2) {
+          case 'M':
+            printf("Digite o nome do paciente sem espacos (ex:JoaodaSilva): ");
+            scanf("%s", nome);
 
-        printf("Digite o tipo de consulta do paciente (ex: dermatologista, dentista, urologista...): ");
-        scanf("%s", consulta);
+            printf("Digite a idade do paciente: ");
+            scanf("%d", &idade);
 
-        printf("Dias disponiveis: ");
-        for (int i = data_hora_atual->tm_mday; i <= 30; i++) {
-          printf("%d ", i);
+            printf("Digite o tipo de consulta do paciente (ex: dermatologista, dentista, urologista...): ");
+            scanf("%s", consulta);
+
+            printf("Dias disponiveis: ");
+            for (int i = data_hora_atual->tm_mday; i <= 30; i++) 
+              printf("%d ", i);
+            
+
+            printf("\nDia escolhido pelo paciente: ");
+            scanf("%d", &day);
+
+            while (day > 30 || day < data_hora_atual->tm_mday) {
+              printf("Por favor, escolha um dia valido: ");
+              scanf("%d", &day);
+            }
+
+            printf("Os horarios disponiveis sao: \n");
+
+            for (int i = 0; i < 23; i++) {
+              if (dia[day - 1].horario[i] && i < 22)
+                printf("%02d:%02d - ", dia[day - 1].horario[i] / 60, dia[day - 1].horario[i] % 60);
+
+              else if (dia[day - 1].horario[i] && i == 22)
+                printf("%02d:%02d\n", dia[day - 1].horario[i] / 60, dia[day - 1].horario[i] % 60);
+            }
+
+            printf("Horario escolhido pelo paciente: ");
+            scanf("%d:%d", &Hh, &Mm);
+            Mm += Hh * 60;
+            dia[day - 1].horario[(Mm - 480) / 30] = 0;
+
+            inserirElementoLista(&dia[day-1].l, dia[day-1].it, Mm, nome, consulta, idade);
+            printf("Consulta agendada com sucesso!\n");
+
+            break;
+
+          default:
+            printf("Insira o dia e horario da consulta, Dd(dia)-Hh(horas):Mm(minutos): ");
+            scanf("%d-%d:%d", &day, &Hh, &Mm);
+            removerElemento(&dia[day-1].l, dia[day-1].it, (Hh*60+Mm));
+
+            dia[day-1].horario[(((Hh*60)+Mm) - 480) / 30] = Hh*60+Mm;
+
+            printf("Os horarios disponiveis sao: \n");
+
+            for (int i = 0; i < 23; i++) {
+              if (dia[day - 1].horario[i] && i < 22)
+                printf("%02d:%02d - ", dia[day - 1].horario[i] / 60, dia[day - 1].horario[i] % 60);
+
+              else if (dia[day - 1].horario[i] && i == 22)
+                printf("%02d:%02d\n", dia[day - 1].horario[i] / 60, dia[day - 1].horario[i] % 60);
+            }
+
+            break;
         }
 
-        printf("\nDia escolhido pelo paciente: ");
-        scanf("%d", &day);
-          
-        while (day>30 || day<data_hora_atual->tm_mday){
-          printf ("Por favor, escolha um dia valido: ");
-          scanf("%d", &day);
-        }
-
-        printf("Os horarios disponiveis sao: \n");
-
-        for (int i = 0; i < 23; i++) {
-          if (dia[day - 1].horario[i] && i < 22)
-            printf("%02d:%02d - ", dia[day - 1].horario[i] / 60, dia[day - 1].horario[i] % 60);
-
-          else if (dia[day - 1].horario[i] && i == 22)
-            printf("%02d:%02d\n", dia[day - 1].horario[i] / 60, dia[day - 1].horario[i] % 60);
-        }
-
-        printf("Horario escolhido pelo paciente: ");
-        scanf("%d:%d", &Hh, &Mm);
-        Mm += Hh * 60;
-        dia[day - 1].horario[(Mm - 480) / 30] = 0; 
-
-        inserirElementoLista(&dia[day].l, dia[day].it, Mm, nome, consulta, idade);
-        printf ("Consulta agendada com sucesso!\n");
         break;
 
       case 'S':

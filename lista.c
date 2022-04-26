@@ -146,6 +146,7 @@ void removerElemento(lista *l, Iterador *i, int valor) {
       free(i->posicao);
       l->tam--;
     }
+    i->posicao = l->sentinela->proximo;
   }
 }
 
