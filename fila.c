@@ -198,6 +198,7 @@ void destruirFila(Fila *f){
   free(f->inicio);
 }
 
+//Imprime a fila! :D
 void imprimeFila(Fila *f){
   int i=0;
   if (vaziaFila(f))
