@@ -39,6 +39,7 @@ int vaziaLista(lista *l);
 void inserirAntes(lista *l, Iterador *i, int valor, char nome[], char consulta[]);
 void inserirDepois(lista *l, Iterador *i, int valor, char nome[], char consulta[]);
 void removerElemento(lista *l, Iterador *i, int valor);
+void insereListaOrdenada(lista *l, Iterador *i, int num, char nome[], char consulta[], int idade, int (*compara)(int valor,int i),Iterador* (*ordena)(int valor, Iterador *i, lista *l,int (*compara)(int valor,int i)));
 
 Iterador *primeiro(lista *l);
 Iterador *ultimo(lista *l);

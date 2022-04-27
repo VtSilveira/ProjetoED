@@ -21,10 +21,10 @@ void inserirElementoLista(lista *l, Iterador *i, int num, char nome[], char cons
   } else {
     NodeL *novo = (NodeL *)malloc(sizeof(NodeL));
     if (novo) {
-      while (num > i->posicao->valor && i->posicao != l->sentinela){
+      while (num > i->posicao->valor && i->posicao != l->sentinela) {
         i->posicao = i->posicao->proximo;
       }
-      inserirAntes(l,i,num,nome,consulta);
+      inserirAntes(l, i, num, nome, consulta);
       i->posicao = l->sentinela->proximo;
     }
   }
@@ -34,7 +34,7 @@ void inserirElementoLista(lista *l, Iterador *i, int num, char nome[], char cons
 void destruirLista(lista *l) {
   while (!vaziaLista(l))    // enquanto a Lista não estiver vazia
     removerInicioLista(l);  // remove o nó do inicio
-    
+
   free(l->sentinela);  // desaloca o nó sentinela da memória que não é considerado como nó na função "removerInicio"
 }
 
@@ -186,13 +186,29 @@ int elemento(Iterador *i) {
 
 void imprimirLista(lista *l) {
   NodeL *aux = l->sentinela->proximo;
-  if (vaziaLista(l)){
-    printf ("A lista esta vazia!\n\n");
+  if (vaziaLista(l)) {
+    printf("A lista esta vazia!\n\n");
     return;
   }
 
   while (aux != l->sentinela) {
-    printf("%02d:%02d - %s - %s\n", (aux->valor/60),(aux->valor%60),aux->nome, aux->consulta);
+    printf("%02d:%02d - %s - %s\n", (aux->valor / 60), (aux->valor % 60), aux->nome, aux->consulta);
     aux = aux->proximo;
+  }
+}
+
+//===============Função p/lista ordenada
+
+void insereListaOrdenada(lista *l, Iterador *i, int num, char nome[], char consulta[], int idade, int (*compara)(int valor, int i), Iterador *(*ordena)(int valor, Iterador *i, lista *l, int (*compara)(int valor, int i))) {
+  if (vaziaLista(l)) {
+    inserirInicioLista(l, num, nome, consulta);
+    i->posicao = l->sentinela->proximo;
+  } else {
+    NodeL *novo = (NodeL *)malloc(sizeof(NodeL));
+    if (novo) {
+      i = (*ordena)(num, i, l, compara);
+      inserirAntes(l, i, num, nome, consulta);
+      i->posicao = l->sentinela->proximo;
+    }
   }
 }
