@@ -125,14 +125,17 @@ void trocaNodeFila(NodeF *a, NodeF *b) {
 
   aux->idade = a->idade;
   aux->urgencia = a->urgencia;
+  strcpy(aux->nome,a->nome);
 
 
   a->idade = b->idade;
   a->urgencia = b->urgencia;
+   strcpy(a->nome,b->nome);
 
 
   b->idade = aux->idade;
   b->urgencia = aux->urgencia;
+  strcpy(b->nome,aux->nome);
 
   free(aux);
 }
@@ -193,4 +196,19 @@ void destruirFila(Fila *f){
     retirarFila(f);
 
   free(f->inicio);
+}
+
+void imprimeFila(Fila *f){
+  int i=0;
+  if (vaziaFila(f))
+    printf ("A fila esta vazia!\n\n");
+  else
+    printf ("A: Azul\nB: Verde\nC: Amarelo\nD: Laranja\nE: Vermelho\nNome - Idade - Urgencia\n");
+    
+  NodeF *aux = f->inicio;
+  while(i<f->tam){
+       printf("%s - %d - %c\n", aux->nome, aux->idade, aux->urgencia);
+       aux=aux->proximo;
+       i++;
+   }
 }

@@ -25,7 +25,13 @@ void inicializarIteradores(dia dia[]){
 
 char chooser1(){
     char chooser;
-    printf("Para emergencia digite M, para abrir a aba de consultas digite C, para sair do programa, digite S: ");
+    printf("Para emergencia digite M \nPara abrir a aba de consultas digite C \nPara sair do programa, digite S \nPara ir para Interface do medico digite T \nDigite sua escolha: ");
+    scanf(" %c", &chooser);
+    return chooser;
+} 
+char chooser2(){
+    char chooser;
+    printf("Para ver a agenda, digite A \nPara ver a fila de emergencia, digite E \nPara chamar o proximo paciente do dia na agenda, digite P \nPara chamar o proximo paciente da fila de emergencia, digite Q \nPara ir para Interface do atendente digite T \nDigite sua escolha: ");
     scanf(" %c", &chooser);
     return chooser;
 } 

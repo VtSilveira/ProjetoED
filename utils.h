@@ -14,6 +14,7 @@ typedef struct dia {
 void inicializarDia(dia dia[]);
 void inicializarIteradores(dia dia[]);
 char chooser1();
+char chooser2();
 void abaConsulta(dia dia[], struct tm *data_hora_atual);
 void abaEmergencia(Fila *f);
 

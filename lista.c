@@ -186,6 +186,11 @@ int elemento(Iterador *i) {
 
 void imprimirLista(lista *l) {
   NodeL *aux = l->sentinela->proximo;
+  if (vaziaLista(l)){
+    printf ("A lista esta vazia!\n\n");
+    return;
+  }
+
   while (aux != l->sentinela) {
     printf("%02d:%02d - %s - %s\n", (aux->valor/60),(aux->valor%60),aux->nome, aux->consulta);
     aux = aux->proximo;

@@ -27,6 +27,7 @@ void inserirFila(char nome[30], int idade, char urgencia, Fila *f);
 void retirarFila(Fila *f);
 int vaziaFila(Fila *f);
 void destruirFila(Fila *f);
+void imprimeFila(Fila *f);
 
 //==============================
 //Funcoes para uso interno das funções principais
