@@ -8,7 +8,7 @@
 
 int main() {
   char chooser;
-  dia dia[30];
+  dia dia[31];
   Fila f;
   int escolheInterface;
 
@@ -23,7 +23,7 @@ int main() {
 
   printf("Para entrar na interface do(a) medico(a), digite 0, para entrar na interface do(a) atendente, digite 1: ");
   scanf("%d", &escolheInterface);
-  system("cls");
+
   while (1) {
     while (!escolheInterface) {
       printf("===========Interface do medico===========\n");
@@ -50,7 +50,7 @@ int main() {
 
         case 'T':
           escolheInterface = 1;
-          system("cls");
+
           break;
 
         default:
@@ -81,7 +81,7 @@ int main() {
 
         case 'T':
           escolheInterface = 0;
-          system("cls");
+
           break;
 
         default:
