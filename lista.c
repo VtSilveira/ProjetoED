@@ -198,6 +198,7 @@ void imprimirLista(lista *l) {
 }
 
 //===============Função p/lista ordenada
+// funciona exatamente da mesma maneira da inserção de elementos na inserirElementoLista, porém com 2 ponteiros pra funcao passados como parametro, o compara e o ordena.
 
 void insereListaOrdenada(lista *l, Iterador *i, int num, char nome[], char consulta[], int idade, int (*compara)(int valor, int i), Iterador *(*ordena)(int valor, Iterador *i, lista *l, int (*compara)(int valor, int i))) {
   if (vaziaLista(l)) {
@@ -210,5 +211,19 @@ void insereListaOrdenada(lista *l, Iterador *i, int num, char nome[], char consu
       inserirAntes(l, i, num, nome, consulta);
       i->posicao = l->sentinela->proximo;
     }
+  }
+}
+
+// imprime a lista ordenada :D
+void imprimirListaOrdenada(lista *l) {
+  NodeL *aux = l->sentinela->proximo;
+  if (vaziaLista(l)) {
+    printf("A lista esta vazia!\n\n");
+    return;
+  }
+
+  while (aux != l->sentinela) {
+    printf("%d\n", aux->valor);
+    aux = aux->proximo;
   }
 }

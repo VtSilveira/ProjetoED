@@ -49,5 +49,5 @@ Iterador *buscaPosicao(lista *l, int valor);
 int acabou(Iterador *i);
 
 void imprimirLista(lista *l);
-
+void imprimirListaOrdenada(lista *l);
 #endif

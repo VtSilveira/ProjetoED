@@ -38,4 +38,13 @@ int main() {
   insereListaOrdenada(&l, it, 10, "abc", "abc", 4, comparador, ordenalista);
   insereListaOrdenada(&l, it, 15, "abc", "abc", 4, comparador, ordenalista);
   insereListaOrdenada(&l, it, 109, "abc", "abc", 4, comparador, ordenalista);
+  imprimirListaOrdenada(&l);
+  insereListaOrdenada(&l, it, 198, "abc", "abc", 4, comparador, ordenalista);
+  insereListaOrdenada(&l, it, 789, "abc", "abc", 4, comparador, ordenalista);
+  insereListaOrdenada(&l, it, 1625, "abc", "abc", 4, comparador, ordenalista);
+  insereListaOrdenada(&l, it, 424, "abc", "abc", 4, comparador, ordenalista);
+  imprimirListaOrdenada(&l);
+  destruirLista(&l);
+
+  return 0;
 }
