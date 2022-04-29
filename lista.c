@@ -204,8 +204,9 @@ void imprimirLista(lista *l) {
 }
 
 //===============Função p/lista ordenada
-// funciona exatamente da mesma maneira da inserção de elementos na inserirElementoLista, porém com ponteiro pra funcao de ordenacao passada como parametro
 
+
+// funciona exatamente da mesma maneira da inserção de elementos na inserirElementoLista, porém com ponteiro pra funcao de ordenacao passada como parametro
 void insereListaOrdenada(lista *l, Iterador *i, int num, char nome[], char consulta[], int idade, Iterador *(*ordena)(int valor, Iterador *i, lista *l)) {
   if (vaziaLista(l)) {
     inserirInicioLista(l, num, nome, consulta);

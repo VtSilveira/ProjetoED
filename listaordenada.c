@@ -3,12 +3,7 @@
 
 #include "lista.h"
 
-Iterador *ordenalista(int valor, Iterador *i, lista *l) {
-  while (valor > i->posicao->valor && i->posicao != l->sentinela) {
-    i->posicao = i->posicao->proximo;
-  }
-  return i;
-}
+Iterador *ordenalista(int valor, Iterador *i, lista *l);
 
 int main() {
   lista l;
@@ -40,4 +35,11 @@ int main() {
   destruirLista(&l);
 
   return 0;
+}
+
+Iterador *ordenalista(int valor, Iterador *i, lista *l) {
+  while (valor > i->posicao->valor && i->posicao != l->sentinela) {
+    i->posicao = i->posicao->proximo;
+  }
+  return i;
 }
