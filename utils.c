@@ -11,17 +11,11 @@
 void inicializarDia(dia dia[]) {
   for (int i = 0; i <= 30; i++) {
     dia[i].horario[0] = 480;
+    inicializarLista(&dia[i].l);
+    dia[i].it = primeiro(&dia[i].l);
     for (int j = 1; j < 23; j++) {
       dia[i].horario[j] = dia[i].horario[0] + (30 * j);
     }
-  }
-}
-
-//Função que inicializa os iteradores de todos os dias de um mês comercial.
-void inicializarIteradores(dia dia[]){     
-  for (int i = 0; i < 30; i++) {
-    inicializarLista(&dia[i].l);
-    dia[i].it = primeiro(&dia[i].l);
   }
 }
 
@@ -45,7 +39,7 @@ char chooser2(){
 void abaConsulta(dia dia[], struct tm *data_hora_atual){
     char nome[30];
     char consulta[30];
-    int idade,day,Hh,Mm;
+    int day,Hh,Mm;
     char chooser2;
 
         printf("Para marcar, digite M, para cancelar, digite C: ");
@@ -59,10 +53,6 @@ void abaConsulta(dia dia[], struct tm *data_hora_atual){
             //Recebe nome do paciente.
             printf("Digite o nome do paciente sem espacos (ex:JoaodaSilva): ");
             scanf("%s", nome);
-
-            //Recebe a idade do paciente.
-            printf("Digite a idade do paciente: ");
-            scanf("%d", &idade);
 
             //Recebe o tipo de consulta que o paciente deseja agendar.
             printf("Digite o tipo de consulta do paciente (ex: dermatologista, dentista, urologista...): ");
@@ -101,7 +91,7 @@ void abaConsulta(dia dia[], struct tm *data_hora_atual){
             dia[day - 1].horario[(Mm - 480) / 30] = 0; //Coloca o horário como indisponível.
 
             //Insere o horário na agenda de horários marcados.
-            inserirElementoLista(&dia[day-1].l, dia[day-1].it, Mm, nome, consulta, idade);
+            inserirElementoLista(&dia[day-1].l, dia[day-1].it, Mm, nome, consulta);
             printf("Consulta agendada com sucesso!\n");
 
             break;

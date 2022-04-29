@@ -12,17 +12,18 @@ int main() {
   dia dia[31];
   Fila f;
   int escolheInterface;
+  struct tm *data_hora_atual;
+
+  //Inicializa os iteradores, lista e carrega os horários de 30 em 30 min.
+  inicializarDia(dia);
 
   //Instruções da biblioteca time.h para utilizarmos hora e data em tempo real.
-  struct tm *data_hora_atual;
-  inicializarDia(dia);
   time_t segundos;
   time(&segundos);
   data_hora_atual = localtime(&segundos);
 
-  //Inicialização da Fila de Prioridade e dos Iteradores de todos os dias.
+  //Inicialização da Fila de Prioridade.
   inicializarFila(&f);
-  inicializarIteradores(dia);
 
   //Seleção de Interface (Interface do(a) medico(a) ou do(a) atendente).
   printf("Para entrar na interface do(a) medico(a), digite 0, para entrar na interface do(a) atendente, digite 1: ");

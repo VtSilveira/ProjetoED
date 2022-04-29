@@ -14,17 +14,16 @@ void inicializarLista(lista *l) {
   l->tam = 0;
 }
 
-void inserirElementoLista(lista *l, Iterador *i, int num, char nome[], char consulta[], int idade) {
-  if (vaziaLista(l)) {//se a lista tiver vazia, usamos a função de inserir no inicio (poderia ser a que insere no final também)
+void inserirElementoLista(lista *l, Iterador *i, int num, char nome[], char consulta[]) {
+  if (vaziaLista(l)) {  // se a lista tiver vazia, usamos a função de inserir no inicio (poderia ser a que insere no final também)
     inserirInicioLista(l, num, nome, consulta);
-    i->posicao = l->sentinela->proximo;//o iterador passa a apontar para o primeiro nó da lista
+    i->posicao = l->sentinela->proximo;  // o iterador passa a apontar para o primeiro nó da lista
   } else {
-      while (num > i->posicao->valor && i->posicao != l->sentinela) { // equanto o horario informado (num) for maior que o horário do nó para o qual o iterador está apontando e não chegamos ao final da lista
-        i->posicao = i->posicao->proximo;//o iterador avança na lista
-      }
-      inserirAntes(l, i, num, nome, consulta);//ao final do loop, o iterador vai ter parado no nó que possui o horário imediatamente superior ao horário informado, portanto, devemos inserir antes desse nó para manter a ordenação da Lista
-      i->posicao = l->sentinela->proximo;//o iterador volta a apontar para o primeiro nó da Lista
-    
+    while (num > i->posicao->valor && i->posicao != l->sentinela) {  // equanto o horario informado (num) for maior que o horário do nó para o qual o iterador está apontando e não chegamos ao final da lista
+      i->posicao = i->posicao->proximo;                              // o iterador avança na lista
+    }
+    inserirAntes(l, i, num, nome, consulta);  // ao final do loop, o iterador vai ter parado no nó que possui o horário imediatamente superior ao horário informado, portanto, devemos inserir antes desse nó para manter a ordenação da Lista
+    i->posicao = l->sentinela->proximo;       // o iterador volta a apontar para o primeiro nó da Lista
   }
 }
 
@@ -98,49 +97,49 @@ void inserirFinalLista(lista *l, int num, char nome[], char consulta[]) {
   }
 }
 
-//essa função recebe como parâmetros os conteúdos referentes ao novo nó que deve ser inserido na Lista, bem como o iterador apontando para o nó da Lista que será usado como referência para inserção
+// essa função recebe como parâmetros os conteúdos referentes ao novo nó que deve ser inserido na Lista, bem como o iterador apontando para o nó da Lista que será usado como referência para inserção
 void inserirAntes(lista *l, Iterador *i, int valor, char nome[], char consulta[]) {
   NodeL *novo = malloc(sizeof(NodeL));
-  NodeL *aux = i->posicao->antes;//é criado um ponteiro para o nó anterior ao nó que o iterador está apontando.
-  if (novo) {//se foi alocado corretamente:
-    l->tam++;//tamanho da Lista aumenta
+  NodeL *aux = i->posicao->antes;  //é criado um ponteiro para o nó anterior ao nó que o iterador está apontando.
+  if (novo) {                      // se foi alocado corretamente:
+    l->tam++;                      // tamanho da Lista aumenta
 
-    //os parâmetros da função são atribuidos ao novo Nó alocado
+    // os parâmetros da função são atribuidos ao novo Nó alocado
     novo->valor = valor;
     strcpy(novo->nome, nome);
     strcpy(novo->consulta, consulta);
 
-    novo->antes = aux;//o nó anterior ao novo nó passa a ser o nó que era anterior ao apontado pelo iterador
-    novo->proximo = i->posicao;//o nó posterior ao novo nó é o nó apontado pelo iterador, uma vez que desejamos inserir antes dele
+    novo->antes = aux;           // o nó anterior ao novo nó passa a ser o nó que era anterior ao apontado pelo iterador
+    novo->proximo = i->posicao;  // o nó posterior ao novo nó é o nó apontado pelo iterador, uma vez que desejamos inserir antes dele
 
-    aux->proximo = novo;//o nó que era anterior ao apontado pelo iterador se conecta ao novo nó
-    i->posicao->antes = novo;//o nó anterior ao apontado pelo iterador passa a ser o novo nó, preservando a característica circular da Lista
+    aux->proximo = novo;       // o nó que era anterior ao apontado pelo iterador se conecta ao novo nó
+    i->posicao->antes = novo;  // o nó anterior ao apontado pelo iterador passa a ser o novo nó, preservando a característica circular da Lista
   }
 }
 
-//essa função também recebe como parâmetros os conteúdos referentes ao novo nó que deve ser inserido na Lista, bem como o iterador apontando para o nó da Lista que será usado como referência para inserção
+// essa função também recebe como parâmetros os conteúdos referentes ao novo nó que deve ser inserido na Lista, bem como o iterador apontando para o nó da Lista que será usado como referência para inserção
 void inserirDepois(lista *l, Iterador *i, int valor, char nome[], char consulta[]) {
   NodeL *novo = malloc(sizeof(NodeL));
-  NodeL *aux = i->posicao->proximo;//é criado um ponteiro para o nó posterior ao nó que o iterador está apontando.
-  if (novo) {//se foi alocado corretamente:
-    l->tam++;//tamanho da Lista aumenta
-    //os parâmetros da função são atribuidos ao novo Nó alocado
+  NodeL *aux = i->posicao->proximo;  //é criado um ponteiro para o nó posterior ao nó que o iterador está apontando.
+  if (novo) {                        // se foi alocado corretamente:
+    l->tam++;                        // tamanho da Lista aumenta
+    // os parâmetros da função são atribuidos ao novo Nó alocado
     novo->valor = valor;
     strcpy(novo->nome, nome);
     strcpy(novo->consulta, consulta);
 
-    novo->proximo = aux;//o nó posterior ao novo nó passa a ser o nó que era posterior ao apontado pelo iterador
-    novo->antes = i->posicao;//o nó anterior ao novo nó é o nó apontado pelo iterador, uma vez que desejamos inserir depois dele
+    novo->proximo = aux;       // o nó posterior ao novo nó passa a ser o nó que era posterior ao apontado pelo iterador
+    novo->antes = i->posicao;  // o nó anterior ao novo nó é o nó apontado pelo iterador, uma vez que desejamos inserir depois dele
 
-    aux->antes = novo;//o nó que era posterior ao apontado pelo iterador se conecta ao novo nó
-    i->posicao->proximo = novo;//o nó posterior ao apontado pelo iterador passa a ser o novo nó, preservando a característica circular da Lista
+    aux->antes = novo;           // o nó que era posterior ao apontado pelo iterador se conecta ao novo nó
+    i->posicao->proximo = novo;  // o nó posterior ao apontado pelo iterador passa a ser o novo nó, preservando a característica circular da Lista
   }
 }
 
 void removerElemento(lista *l, Iterador *i, int valor) {
-  if (!vaziaLista(l)) {  // se a lista não estiver vazia:
-    i = buscaPosicao(l, valor); // o iterador passa a apontar para o nó que desejamos remover
-    if (i) { //se existe esse nó na Lista:
+  if (!vaziaLista(l)) {          // se a lista não estiver vazia:
+    i = buscaPosicao(l, valor);  // o iterador passa a apontar para o nó que desejamos remover
+    if (i) {                     // se existe esse nó na Lista:
       i->posicao->proximo->antes = i->posicao->antes;
       i->posicao->antes->proximo = i->posicao->proximo;
       free(i->posicao);
@@ -150,7 +149,7 @@ void removerElemento(lista *l, Iterador *i, int valor) {
   }
 }
 
-//função que retorna um ponteiro para um iterador que tem como referência o primeiro elemento da Lista
+// função que retorna um ponteiro para um iterador que tem como referência o primeiro elemento da Lista
 Iterador *primeiro(lista *l) {
   Iterador *i = malloc(sizeof(Iterador));
   i->posicao = l->sentinela->proximo;
@@ -158,7 +157,7 @@ Iterador *primeiro(lista *l) {
   return i;
 }
 
-//função que retorna um ponteiro para um iterador que tem como referência o ultimo elemento da Lista
+// função que retorna um ponteiro para um iterador que tem como referência o ultimo elemento da Lista
 Iterador *ultimo(lista *l) {
   Iterador *i = malloc(sizeof(Iterador));
   i->posicao = l->sentinela->antes;
@@ -191,13 +190,13 @@ int elemento(Iterador *i) {
 }
 
 void imprimirLista(lista *l) {
-  NodeL *aux = l->sentinela->proximo;//ponteiro que aponta para o primeiro elemento da lista
+  NodeL *aux = l->sentinela->proximo;  // ponteiro que aponta para o primeiro elemento da lista
   if (vaziaLista(l)) {
     printf("A lista esta vazia!\n\n");
     return;
   }
 
-  while (aux != l->sentinela) {//equanto não chega no sentinela
+  while (aux != l->sentinela) {  // equanto não chega no sentinela
     printf("%02d:%02d - %s - %s\n", (aux->valor / 60), (aux->valor % 60), aux->nome, aux->consulta);
     aux = aux->proximo;
   }
@@ -205,32 +204,3 @@ void imprimirLista(lista *l) {
 
 //===============Função p/lista ordenada
 
-
-// funciona exatamente da mesma maneira da inserção de elementos na inserirElementoLista, porém com ponteiro pra funcao de ordenacao passada como parametro
-void insereListaOrdenada(lista *l, Iterador *i, int num, char nome[], char consulta[], int idade, Iterador *(*ordena)(int valor, Iterador *i, lista *l)) {
-  if (vaziaLista(l)) {
-    inserirInicioLista(l, num, nome, consulta);
-    i->posicao = l->sentinela->proximo;
-  } else {
-    NodeL *novo = (NodeL *)malloc(sizeof(NodeL));
-    if (novo) {
-      i = (*ordena)(num, i, l);
-      inserirAntes(l, i, num, nome, consulta);
-      i->posicao = l->sentinela->proximo;
-    }
-  }
-}
-
-// imprime a lista ordenada :D
-void imprimirListaOrdenada(lista *l) {
-  NodeL *aux = l->sentinela->proximo;
-  if (vaziaLista(l)) {
-    printf("A lista esta vazia!\n\n");
-    return;
-  }
-
-  while (aux != l->sentinela) {
-    printf("%d\n", aux->valor);
-    aux = aux->proximo;
-  }
-}

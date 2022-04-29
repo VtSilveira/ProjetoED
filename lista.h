@@ -29,7 +29,7 @@ typedef struct iterador {
 } Iterador;
 
 //insere um elemento em sua posicao correta, de modo que a lista esteja sempre ordenada para facilitar o uso de funcoes da lista
-void inserirElementoLista(lista *l, Iterador *i, int num, char nome[], char consulta[], int idade);
+void inserirElementoLista(lista *l, Iterador *i, int num, char nome[], char consulta[]);
 //inicializa a lista
 void inicializarLista(lista *l);
 //insere no inicio da lista
@@ -49,7 +49,6 @@ int vaziaLista(lista *l);
 void inserirAntes(lista *l, Iterador *i, int valor, char nome[], char consulta[]);
 void inserirDepois(lista *l, Iterador *i, int valor, char nome[], char consulta[]);
 void removerElemento(lista *l, Iterador *i, int valor);
-void insereListaOrdenada(lista *l, Iterador *i, int num, char nome[], char consulta[], int idade, Iterador* (*ordena)(int valor, Iterador *i, lista *l));
 
 //funcoes para o uso dos iteradores
 Iterador *primeiro(lista *l);
@@ -58,5 +57,5 @@ Iterador *buscaPosicao(lista *l, int valor);
 int acabou(Iterador *i);
 
 void imprimirLista(lista *l);
-void imprimirListaOrdenada(lista *l);
+
 #endif

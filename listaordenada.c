@@ -1,40 +1,21 @@
+#include "lista.h"
+#include "listaordenada.h"
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "lista.h"
-
-Iterador *ordenalista(int valor, Iterador *i, lista *l);
-
-int main() {
-  lista l;
-  Iterador *it;
-
-  it = primeiro(&l);
-  inicializarLista(&l);
-  insereListaOrdenada(&l, it, 3, "abc", "abc", 4, ordenalista);
-  insereListaOrdenada(&l, it, 7, "abc", "abc", 4, ordenalista);
-  insereListaOrdenada(&l, it, 1, "abc", "abc", 4, ordenalista);
-  insereListaOrdenada(&l, it, 2, "abc", "abc", 4, ordenalista);
-  insereListaOrdenada(&l, it, 90, "abc", "abc", 4, ordenalista);
-  insereListaOrdenada(&l, it, 92, "abc", "abc", 4, ordenalista);
-  insereListaOrdenada(&l, it, 890, "abc", "abc", 4, ordenalista);
-  insereListaOrdenada(&l, it, 12312, "abc", "abc", 4, ordenalista);
-  insereListaOrdenada(&l, it, 1879, "abc", "abc", 4, ordenalista);
-  insereListaOrdenada(&l, it, 3809, "abc", "abc", 4, ordenalista);
-  insereListaOrdenada(&l, it, 798, "abc", "abc", 4, ordenalista);
-  insereListaOrdenada(&l, it, 9814, "abc", "abc", 4, ordenalista);
-  insereListaOrdenada(&l, it, 10, "abc", "abc", 4, ordenalista);
-  insereListaOrdenada(&l, it, 15, "abc", "abc", 4, ordenalista);
-  insereListaOrdenada(&l, it, 109, "abc", "abc", 4, ordenalista);
-  imprimirListaOrdenada(&l);
-  insereListaOrdenada(&l, it, 198, "abc", "abc", 4, ordenalista);
-  insereListaOrdenada(&l, it, 789, "abc", "abc", 4, ordenalista);
-  insereListaOrdenada(&l, it, 1625, "abc", "abc", 4, ordenalista);
-  insereListaOrdenada(&l, it, 424, "abc", "abc", 4, ordenalista);
-  imprimirListaOrdenada(&l);
-  destruirLista(&l);
-
-  return 0;
+// funciona exatamente da mesma maneira da inserção de elementos na inserirElementoLista, porém com ponteiro pra funcao de ordenacao passada como parametro
+void insereListaOrdenada(lista *l, Iterador *i, int num, Iterador *(*ordena)(int valor, Iterador *i, lista *l)) {
+  if (vaziaLista(l)) {
+    inserirInicioListaOrdenada(l, num);
+    i->posicao = l->sentinela->proximo;
+  } else {
+    NodeL *novo = (NodeL *)malloc(sizeof(NodeL));
+    if (novo) {
+      i = (*ordena)(num, i, l);
+      inserirAntesListaOrdenada(l, i, num);
+      i->posicao = l->sentinela->proximo;
+    }
+  }
 }
 
 Iterador *ordenalista(int valor, Iterador *i, lista *l) {
@@ -42,4 +23,46 @@ Iterador *ordenalista(int valor, Iterador *i, lista *l) {
     i->posicao = i->posicao->proximo;
   }
   return i;
+}
+
+void inserirInicioListaOrdenada(lista *l, int num) {
+  NodeL *novo = malloc(sizeof(NodeL));  //é alocado um espaço na memoria para o novo nó
+
+  if (novo) {  // se o novo nó foi alocado corretamente:
+    novo->valor = num;
+    l->sentinela->proximo->antes = novo;    // a referencia "anterior" do antigo primeiro nó passa a ser o novo nó, uma vez que iremos inserir no inicio
+    novo->proximo = l->sentinela->proximo;  // o proximo nó do novo nó passa a ser o antigo primeiro nó
+    l->sentinela->proximo = novo;           // é colocado no inicio da Lista, sendo posterior ao sentinela
+    novo->antes = l->sentinela;             // a fim de manter a característica circular da Lista, a referencia de anterior do novo nó passa a ser o sentinela
+    l->tam++;                               // tamanho da fila é incrementado
+
+  }
+}
+void inserirAntesListaOrdenada(lista *l, Iterador *i, int valor) {
+  NodeL *novo = malloc(sizeof(NodeL));
+  NodeL *aux = i->posicao->antes;  //é criado um ponteiro para o nó anterior ao nó que o iterador está apontando.
+  if (novo) {                      // se foi alocado corretamente:
+    l->tam++;                      // tamanho da Lista aumenta
+
+    // os parâmetros da função são atribuidos ao novo Nó alocado
+    novo->valor = valor;
+    novo->antes = aux;           // o nó anterior ao novo nó passa a ser o nó que era anterior ao apontado pelo iterador
+    novo->proximo = i->posicao;  // o nó posterior ao novo nó é o nó apontado pelo iterador, uma vez que desejamos inserir antes dele
+    aux->proximo = novo;       // o nó que era anterior ao apontado pelo iterador se conecta ao novo nó
+    i->posicao->antes = novo;  // o nó anterior ao apontado pelo iterador passa a ser o novo nó, preservando a característica circular da Lista
+  }
+}
+
+// imprime a lista ordenada :D
+void imprimirListaOrdenada(lista *l) {
+  NodeL *aux = l->sentinela->proximo;
+  if (vaziaLista(l)) {
+    printf("A lista esta vazia!\n\n");
+    return;
+  }
+
+  while (aux != l->sentinela) {
+    printf("%d\n", aux->valor);
+    aux = aux->proximo;
+  }
 }
