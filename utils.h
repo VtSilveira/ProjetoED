@@ -16,11 +16,17 @@ typedef struct dia {
   Iterador *it;
 } dia;
 
+//inicializa as agendas dos dias do mes
 void inicializarDia(dia dia[]);
+//inicializa os iteradores
 void inicializarIteradores(dia dia[]);
+//funcao que escolhe as opcoes da interface do atendente
 char chooser1();
+//funcao que escolhe as opcoes da interface do medico
 char chooser2();
+//funcao que abre os requisitos para marcar ou cancelar uma consulta, baseado no dia atual
 void abaConsulta(dia dia[], struct tm *data_hora_atual);
+//funcao que abre os requisitos para inserir um paciente na fila de emergencia
 void abaEmergencia(Fila *f);
 
 

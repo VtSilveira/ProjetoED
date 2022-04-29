@@ -22,20 +22,31 @@ typedef struct fila {
   int tam;
 } Fila;
 
+//inicializa a fila
 void inicializarFila(Fila *f);
+//insere na fila
 void inserirFila(char nome[30], int idade, char urgencia, Fila *f);
+//retira o primeiro elemento da fila
 void retirarFila(Fila *f);
+//checa se a fila esta vazia
 int vaziaFila(Fila *f);
+//destroi a fila
 void destruirFila(Fila *f);
+//imprime a fila
 void imprimeFila(Fila *f);
 
 //==============================
 //Funcoes para uso interno das funções principais
 
+//faz o heapfy de modo bottom-up
 void fixUpFila(Fila *f,NodeF *n);
-void fixDownFila(Fila *f,NodeF *n);
+//troca valores dos nós de lugar
 void trocaNodeFila(NodeF *a,NodeF *b);
+//funcao que ajusta a prioridade
 char ajustaUrgenciaFila(char urgencia);
+//faz parte da remocao de um elemento da fila, fazendo o heapfy de modo top-down
 void ajustaHeapDownFila(Fila *f, NodeF *n);
+//faz parte da inserção de elemento na fila, encontrando o pai do nó
+NodeF *encontraPai (Fila *f, NodeF *n);
 
 #endif
