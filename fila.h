@@ -48,5 +48,7 @@ char ajustaUrgenciaFila(char urgencia);
 void ajustaHeapDownFila(Fila *f, NodeF *n);
 //faz parte da inserção de elemento na fila, encontrando o pai do nó
 NodeF *encontraPai (Fila *f, NodeF *n);
+////faz parte da inserção de elemento na fila, atualizando os filhos do pai do nó alocado
+void atualizaFilhos(NodeF *n);
 
 #endif

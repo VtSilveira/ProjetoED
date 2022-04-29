@@ -48,11 +48,12 @@ void inserirFila(char nome[],int idade, char urgencia, Fila *f) {
       novo->index = f->tam;
       novo->pai = encontraPai(f,novo);
 
-      //Atualizando o índice filho do pai do elemento recebido. Se o index do novo elemento for exatamente a multiplicação do index do pai por 2, será o filho da esquerda, se não, será o filho da direita.
+      /*Atualizando o índice filho do pai do elemento recebido. Se o index do novo elemento for exatamente a multiplicação do index do pai por 2, será o filho da esquerda, se não, será o filho da direita.
       if (novo->pai->index * 2 == novo->index)
         novo->pai->filhoEsq = novo;
       else
-        novo->pai->filhoDir = novo;
+        novo->pai->filhoDir = novo;*/
+      atualizaFilhos(novo);
       
       //Feito o fixUp para atualizar a prioridade da lista
       fixUpFila(f, novo);
@@ -214,4 +215,12 @@ NodeF *encontraPai (Fila *f,NodeF *n){
         i++;
       }
       return aux;
+}
+
+void atualizaFilhos(NodeF *n){
+      //Atualizando o índice filho do pai do elemento recebido. Se o index do novo elemento for exatamente a multiplicação do index do pai por 2, será o filho da esquerda, se não, será o filho da direita.
+      if (n->pai->index * 2 == n->index)
+        n->pai->filhoEsq = n;
+      else
+        n->pai->filhoDir = n;
 }
